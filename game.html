@@ -97,24 +97,6 @@
             startGame();
         }
 
-        function startGame() {
-            gameTimer = setInterval(function() {
-                setElementSleepy();
-            }, DOT_INTERVAL);
-        }
-
-        function setElementSleepy() {
-            var elemNum = Math.floor(Math.random() * ROWS * COLUMNS);
-            if (Tiles[elemNum].isSleepy()) {
-                setElementSleepy();
-                return;
-            }
-            Tiles[elemNum].setSleepy();
-            if ((score + 1) % 10 == 0) {
-                clearInterval(gameTimer);
-            }
-        }
-
         function success() {
             scoreDiv.innerHTML = "Score: " + ++score;
             if (score % 10 == 0) {
@@ -133,6 +115,24 @@
                 return;
             }
             clearInterval(gameTimer);
+        }
+
+        function setElementSleepy() {
+            var elemNum = Math.floor(Math.random() * ROWS * COLUMNS);
+            if (Tiles[elemNum].isSleepy()) {
+                setElementSleepy();
+                return;
+            }
+            Tiles[elemNum].setSleepy();
+            if ((score + 1) % 10 == 0) {
+                clearInterval(gameTimer);
+            }
+        }
+
+        function startGame() {
+            gameTimer = setInterval(function() {
+                setElementSleepy();
+            }, DOT_INTERVAL);
         }
     </script>
     <div class="pageTitle" id="title">

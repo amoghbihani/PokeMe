@@ -14,6 +14,7 @@ function Tile(success, endGame, num) {
 
 Tile.prototype.setElement = function(element) {
     this.element = element;
+    this.elementStyle = this.element.className;
 };
 
 Tile.prototype.isSleepy = function() {
@@ -38,11 +39,20 @@ Tile.prototype.setSleepy = function() {
 Tile.prototype.clicked = function() {
     if (this.slept)
         return;
+
+    this.element.className +=" animateButtonClick";
+    var tile = this;
+    setTimeout(function() {
+        tile.element.className = tile.elementStyle;
+    }, 500);
+
     clearTimeout(this.timer);
-    this.sleepy = false;
     this.element.style.background = "";
     this.element.style.opacity = "1";
-    this.success();
+    if (this.sleepy) {
+        this.sleepy = false;
+        this.success();
+    }
 };
 
 Tile.prototype.reset = function() {
