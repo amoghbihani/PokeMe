@@ -1,0 +1,85 @@
+<!--
+ * Project: Poke Me!
+ * Author: Amogh Bihani
+-->
+
+<!DOCTYPE>
+<html>
+<head>
+    <Title> Final Score </Title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/body.css">
+    <link rel="stylesheet" type="text/css" href="css/pageTitle.css">
+    <link rel="stylesheet" type="text/css" href="css/textChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/pageFooter.css">
+    <link rel="stylesheet" type="text/css" href="css/fadeInAnimation.css">
+    <link rel="stylesheet" type="text/css" href="css/buttonClickAnimation.css">
+    <style>
+        p {
+            width: 80%;
+            margin: 10%;
+            text-align: center;
+        }
+        #scoreValue {
+            font-size: 400%;
+            color: #00cc00;
+        }
+        #highScoreValue {
+            font-size: 250%;
+            color: #ff6633;
+        }
+        #footer {
+            bottom: 5%;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body onload="load()" class="animatefadeIn">
+    <script type="text/javascript">
+        var score;
+        var highScore;
+        var replayUrl;
+        function load() {
+            var url = window.location.href;
+            score = url.substring(url.indexOf('?') + 1, url.indexOf('#'));
+            extras = url.substring(url.indexOf('#') + 1, url.length);
+            highScore = extras.substring(0, extras.indexOf('#'));
+            replayUrl = extras.substring(extras.indexOf('#') + 1, extras.length);
+
+            document.getElementById("scoreValue").innerHTML = score;
+            document.getElementById("highScoreValue").innerHTML = "Best: " + highScore;
+        }
+
+        function selected(choice) {
+            document.getElementById("option" + choice).className =
+                    document.getElementById("option" + choice).className + " animateButtonClick";
+            if (choice == 0) {
+                setTimeout(function() {
+                    window.location.href = replayUrl;
+                }, 500);
+            } else {
+                setTimeout(function() {
+                    window.location.href = "mainMenu.html"
+                }, 500);
+            }
+        }
+    </script>
+    <div class="pageTitle">
+        <h2 id="finalScoreHead">Final score</h2>
+    </div>
+    <div id="score">
+        <p id="scoreValue"/>
+    </div>
+    <div id="highScore">
+        <p id="highScoreValue"/>
+    </div>
+    <div class="pageFooter" id="footer">
+        <div id="option0" onclick="selected(0)" class="textChoice">
+            <h3>Play Again</h3>
+        </div>
+        <div id="option1" onclick="selected(1)" class="textChoice">
+            <h3>Main Menu</h3>
+        </div>
+    </div>
+</body>
+</html>

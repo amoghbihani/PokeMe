@@ -20,7 +20,6 @@
             margin: 2px;
             width: 10px;
             height: 10px;
-            padding: 2px;
         }
         table {
             margin-left: auto;
@@ -37,6 +36,7 @@
         var score = 0;
         var level = 1;
         var lives = 3;
+        var size = 35;
         var gameTimer;
         var scoreDiv;
         var levelDiv;
@@ -67,7 +67,7 @@
                     var td = tr.insertCell();
                     var num = i * COLUMNS + j;
                     Tiles[num] = new Tile(success, endGame, num);
-                    Divs[num] = createDiv(num, 30);
+                    Divs[num] = createDiv(num);
                     Tiles[num].setElement(Divs[num]);
                     Divs[num].onclick = function() {
                         Tiles[this.id].clicked();
@@ -78,7 +78,7 @@
             tbl.appendChild(tbody);
         }
 
-        function createDiv(id, size) {
+        function createDiv(id) {
             var div = document.createElement('div');
             div.setAttribute("id", id);
             div.setAttribute("class", "circle");
@@ -93,6 +93,7 @@
             for (var i = 0; i < Divs.length; ++i) {
                 Tiles[i].reset();
                 Divs[i].style.border = "2px  solid " + CURRENT_COLOR;
+                // Divs[i].style.background = COLOR[i % COLOR.length];
             }
             startGame();
         }
@@ -115,6 +116,9 @@
                 return;
             }
             clearInterval(gameTimer);
+            setTimeout(function() {
+                window.location.href = "finalScore.html?" + score +"#0#" + window.location.href;
+            }, 500);
         }
 
         function setElementSleepy() {
