@@ -1,0 +1,26 @@
+/**
+ * Project: Poke Me!
+ * Author: Amogh Bihani
+ */
+
+.pageFooter {
+    background-color: #0066ff;
+    position: fixed;
+    bottom: 0;
+    width: 96%;
+    padding: 1%;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    text-align: center;
+    color: #f0f0f0;
+}
+
+.pageFooter #score {
+    padding-left: 2%;
+    float: left;
+}
+
+.pageFooter #remaining {
+    padding-right: 2%;
+    float: right;
+}

@@ -1,0 +1,147 @@
+<!--
+ * Project: Poke Me!
+ * Author: Amogh Bihani
+-->
+
+<!DOCTYPE>
+<html>
+<head>
+    <Title> Game </Title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/body.css">
+    <link rel="stylesheet" type="text/css" href="css/buttonClickAnimation.css">
+    <link rel="stylesheet" type="text/css" href="css/fadeInAnimation.css">
+    <link rel="stylesheet" type="text/css" href="css/pageFooter.css">
+    <link rel="stylesheet" type="text/css" href="css/pageTitle.css">
+    <style type="text/css">
+        .circle {
+            border-radius: 50%;
+            border: 2px solid #6600ff;
+            margin: 2px;
+            width: 10px;
+            height: 10px;
+            padding: 2px;
+        }
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body onload="load()" class="ananimatefadeIn">
+    <script src="js/tile.js"></script>
+    <script src="js/constants.js"></script>
+    <script type="text/javascript">
+        var Tiles = new Array();
+        var Divs = new Array();
+        var score = 0;
+        var level = 1;
+        var lives = 3;
+        var gameTimer;
+        var scoreDiv;
+        var levelDiv;
+        var remainingDiv;
+
+        function load() {
+            initialize();
+            createTable();
+            updateColors();
+        }
+
+        function initialize() {
+            scoreDiv = document.getElementById('score');
+            levelDiv = document.getElementById('level');
+            remainingDiv = document.getElementById('remaining');
+
+            scoreDiv.innerHTML = "Score: 0";
+            levelDiv.innerHTML = "Level: 1";
+            remainingDiv.innerHTML = "Lives: 3";
+        }
+
+        function createTable() {
+            var tbl = document.getElementById('tbl');
+            var tbody = document.createElement('tbody');
+            for (var i = 0; i < ROWS; ++i) {
+                var tr = tbl.insertRow();
+                for (var j = 0; j < COLUMNS; ++j) {
+                    var td = tr.insertCell();
+                    var num = i * COLUMNS + j;
+                    Tiles[num] = new Tile(success, endGame, num);
+                    Divs[num] = createDiv(num, 30);
+                    Tiles[num].setElement(Divs[num]);
+                    Divs[num].onclick = function() {
+                        Tiles[this.id].clicked();
+                    }
+                    td.appendChild(Divs[num]);
+                }
+            }
+            tbl.appendChild(tbody);
+        }
+
+        function createDiv(id, size) {
+            var div = document.createElement('div');
+            div.setAttribute("id", id);
+            div.setAttribute("class", "circle");
+            div.style.width = size;
+            div.style.height = size;
+            return div;
+        }
+
+        function updateColors() {
+            document.getElementById('title').style.background = CURRENT_COLOR;
+            document.getElementById('footer').style.background = CURRENT_COLOR;
+            for (var i = 0; i < Divs.length; ++i) {
+                Tiles[i].reset();
+                Divs[i].style.border = "2px  solid " + CURRENT_COLOR;
+            }
+            startGame();
+        }
+
+        function startGame() {
+            gameTimer = setInterval(function() {
+                setElementSleepy();
+            }, DOT_INTERVAL);
+        }
+
+        function setElementSleepy() {
+            var elemNum = Math.floor(Math.random() * ROWS * COLUMNS);
+            if (Tiles[elemNum].isSleepy()) {
+                setElementSleepy();
+                return;
+            }
+            Tiles[elemNum].setSleepy();
+            if ((score + 1) % 10 == 0) {
+                clearInterval(gameTimer);
+            }
+        }
+
+        function success() {
+            scoreDiv.innerHTML = "Score: " + ++score;
+            if (score % 10 == 0) {
+                DOT_INTERVAL -= 100;
+                DOT_TIMEOUT -= 200;
+                levelDiv.innerHTML = "Level " + ++level;
+                CURRENT_COLOR = COLOR[level % COLOR.length];
+                updateColors();
+            }
+        }
+
+        function endGame() {
+            if (lives > 0) {
+                --lives;
+                remainingDiv.innerHTML = "Lives: " + lives;
+                return;
+            }
+            clearInterval(gameTimer);
+        }
+    </script>
+    <div class="pageTitle" id="title">
+        <h3 id="level"/>
+    </div>
+    <div class="pageFooter" id="footer">
+        <h3 id="score"/>
+        <h3 id="remaining"/>
+    </div>
+    <table id="tbl"/>
+</body>
+</html>
