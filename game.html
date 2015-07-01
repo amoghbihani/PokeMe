@@ -27,7 +27,7 @@
         }
     </style>
 </head>
-<body onload="load()" class="ananimatefadeIn">
+<body onload="load()">
     <script src="js/tile.js"></script>
     <script src="js/constants.js"></script>
     <script type="text/javascript">
@@ -88,6 +88,10 @@
         }
 
         function updateColors() {
+            document.body.className = "animatefadeIn";
+            setTimeout(function() {
+                document.body.className = "";
+            }, 500);
             document.getElementById('title').style.background = CURRENT_COLOR;
             document.getElementById('footer').style.background = CURRENT_COLOR;
             for (var i = 0; i < Divs.length; ++i) {
@@ -98,27 +102,28 @@
             startGame();
         }
 
+        function increaseLevel() {
+            DOT_INTERVAL -= 100;
+            DOT_TIMEOUT -= 200;
+            levelDiv.innerHTML = "Level " + ++level;
+            CURRENT_COLOR = COLOR[level % COLOR.length];
+            updateColors();
+        }
+
         function success() {
             scoreDiv.innerHTML = "Score: " + ++score;
             if (score % 10 == 0) {
-                DOT_INTERVAL -= 100;
-                DOT_TIMEOUT -= 200;
-                levelDiv.innerHTML = "Level " + ++level;
-                CURRENT_COLOR = COLOR[level % COLOR.length];
-                updateColors();
+                increaseLevel();
             }
         }
 
         function endGame() {
+            remainingDiv.innerHTML = "Lives: " + --lives;
             if (lives > 0) {
-                --lives;
-                remainingDiv.innerHTML = "Lives: " + lives;
                 return;
             }
             clearInterval(gameTimer);
-            setTimeout(function() {
-                window.location.href = "finalScore.html?" + score +"#0#" + window.location.href;
-            }, 500);
+            window.location.href = "finalScore.html?" + score +"#0#" + window.location.href;
         }
 
         function setElementSleepy() {
