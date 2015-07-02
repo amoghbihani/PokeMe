@@ -37,6 +37,8 @@
         var level = 1;
         var lives = 3;
         var size = 35;
+        var rows;
+        var columns;
         var gameTimer;
         var scoreDiv;
         var levelDiv;
@@ -49,6 +51,10 @@
         }
 
         function initialize() {
+            var url = window.location.href;
+            rows = url.substring(url.indexOf('?') + 1, url.indexOf('#'));
+            columns = extras = url.substring(url.indexOf('#') + 1, url.length);
+
             scoreDiv = document.getElementById('score');
             levelDiv = document.getElementById('level');
             remainingDiv = document.getElementById('remaining');
@@ -56,16 +62,23 @@
             scoreDiv.innerHTML = "Score: 0";
             levelDiv.innerHTML = "Level: 1";
             remainingDiv.innerHTML = "Lives: 3";
+
+            var titleDiv = document.getElementById('title');
+            var width = titleDiv.offsetWidth * 0.8 - 4 * columns;
+            var height = document.body.clientHeight * 0.8 - 2 * titleDiv.offsetHeight - 4 * rows;
+            sizeX = width / columns;
+            sizeY = height / rows;
+            size = Math.min(sizeX, sizeY);
         }
 
         function createTable() {
             var tbl = document.getElementById('tbl');
             var tbody = document.createElement('tbody');
-            for (var i = 0; i < ROWS; ++i) {
+            for (var i = 0; i < rows; ++i) {
                 var tr = tbl.insertRow();
-                for (var j = 0; j < COLUMNS; ++j) {
+                for (var j = 0; j < columns; ++j) {
                     var td = tr.insertCell();
-                    var num = i * COLUMNS + j;
+                    var num = i * columns + j;
                     Tiles[num] = new Tile(success, endGame, num);
                     Divs[num] = createDiv(num);
                     Tiles[num].setElement(Divs[num]);
@@ -104,7 +117,7 @@
 
         function increaseLevel() {
             DOT_INTERVAL -= 100;
-            DOT_TIMEOUT -= 200;
+            DOT_TIMEOUT -= 100;
             levelDiv.innerHTML = "Level " + ++level;
             CURRENT_COLOR = COLOR[level % COLOR.length];
             updateColors();
@@ -127,7 +140,7 @@
         }
 
         function setElementSleepy() {
-            var elemNum = Math.floor(Math.random() * ROWS * COLUMNS);
+            var elemNum = Math.floor(Math.random() * rows * columns);
             if (Tiles[elemNum].isSleepy()) {
                 setElementSleepy();
                 return;

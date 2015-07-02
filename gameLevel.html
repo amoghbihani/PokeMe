@@ -6,7 +6,7 @@
 <!DOCTYPE>
 <html>
 <head>
-    <title> Poke Me! </title>
+    <title> Level </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="css/body.css">
     <link rel="stylesheet" type="text/css" href="css/pageTitle.css">
@@ -16,6 +16,8 @@
 </head>
 <body class="animateFadeIn">
     <script type="text/javascript">
+        var rows;
+        var columns;
         function selected(choice) {
             for (var i = 0; i < 2; ++i) {
                 document.getElementById("option" + i).className = "textChoice";
@@ -23,20 +25,29 @@
             document.getElementById("option" + choice).className =
                     document.getElementById("option" + choice).className + " animateButtonClick";
             
+            setLevel(choice);
             setTimeout(function() {
-                window.location.href = menuLocation(choice);
+                window.location.href = "game.html?" + rows + "#" + columns;
             }, 500);            
         }
-        function menuLocation(choice) {
+        function setLevel(choice) {
             switch(choice) {
             case 0:
-                return "gameLevel.html";
+                rows = 4;
+                columns = 3;
+                break;
             case 1:
-                return "highestScores.html";
+                rows = 5;
+                columns = 4;
+                break;
             case 2:
-                return "gameRules.html";
+                rows = 6;
+                columns = 5;
+                break;
             case 3:
-                return "aboutGame.html";
+                rows = 7;
+                columns = 6;
+                break;
             };
         }
     </script>
@@ -44,16 +55,16 @@
         <h2>Poke Me!</h2>
     </div>
     <div id="option0" class="textChoice" onclick="selected(0)">
-        <p>Play</p>
+        <p>Easy</p>
     </div>
     <div id="option1" class="textChoice" onclick="selected(1)">
-        <p>High Scores</p>
+        <p>Medium</p>
     </div>
     <div id="option2" class="textChoice" onclick="selected(2)">
-        <p>Rules</p>
+        <p>Hard</p>
     </div>
     <div id="option3" class="textChoice" onclick="selected(3)">
-        <p>About Game</p>
+        <p>Expert</p>
     </div>
 </body>
 </html>
