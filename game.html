@@ -28,8 +28,9 @@
     </style>
 </head>
 <body onload="load()">
-    <script src="js/tile.js"></script>
     <script src="js/constants.js"></script>
+    <script src="js/tile.js"></script>
+    <script src="js/theme.js"></script>
     <script type="text/javascript">
         var Tiles = new Array();
         var Divs = new Array();
@@ -37,6 +38,7 @@
         var level = 1;
         var lives = 3;
         var size = 35;
+        var current_color = COLOR[1];
         var rows;
         var columns;
         var gameTimer;
@@ -105,11 +107,11 @@
             setTimeout(function() {
                 document.body.className = "";
             }, 500);
-            document.getElementById('title').style.background = CURRENT_COLOR;
-            document.getElementById('footer').style.background = CURRENT_COLOR;
+            document.getElementById('title').style.background = current_color;
+            document.getElementById('footer').style.background = current_color;
             for (var i = 0; i < Divs.length; ++i) {
                 Tiles[i].reset();
-                Divs[i].style.border = "2px  solid " + CURRENT_COLOR;
+                Divs[i].style.border = "2px  solid " + current_color;
                 // Divs[i].style.background = COLOR[i % COLOR.length];
             }
             startGame();
@@ -119,7 +121,7 @@
             DOT_INTERVAL -= 100;
             DOT_TIMEOUT -= 100;
             levelDiv.innerHTML = "Level " + ++level;
-            CURRENT_COLOR = COLOR[level % COLOR.length];
+            current_color = COLOR[level % COLOR.length];
             updateColors();
         }
 
@@ -145,7 +147,7 @@
                 setElementSleepy();
                 return;
             }
-            Tiles[elemNum].setSleepy();
+            Tiles[elemNum].setSleepy(current_color);
             if ((score + 1) % 10 == 0) {
                 clearInterval(gameTimer);
             }

@@ -21,9 +21,9 @@ Tile.prototype.isSleepy = function() {
     return this.sleepy;
 };
 
-Tile.prototype.setSleepy = function() {
+Tile.prototype.setSleepy = function(color) {
     this.sleepy = true;
-    this.element.style.background = CURRENT_COLOR;
+    this.element.style.background = color;
     this.element.style.opacity = "0.7";
     var tile = this;
     this.timer = setTimeout(function() {

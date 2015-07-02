@@ -14,8 +14,4 @@ COLOR[3] = "#ff5722"
 COLOR[4] = "#9c27b0"
 COLOR[5] = "#2196f3"
 COLOR[6] = "#4caF50"
-COLOR[7] ="#795548"
-COLOR[8] = "#8bc34a"
-COLOR[9] = "#00bcd4"
-
-var CURRENT_COLOR = COLOR[1];
+COLOR[7] = "#795548"
