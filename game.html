@@ -63,7 +63,7 @@
             remainingDiv = document.getElementById('remaining');
 
             scoreDiv.innerHTML = "Score: 0";
-            levelDiv.innerHTML = "Level: 1";
+            levelDiv.innerHTML = "Stage: 1";
             remainingDiv.innerHTML = "Lives: 3";
 
             var titleDiv = document.getElementById('title');
@@ -142,7 +142,7 @@
         function increaseLevel() {
             DOT_INTERVAL -= 100;
             DOT_TIMEOUT -= 100;
-            levelDiv.innerHTML = "Level " + ++level;
+            levelDiv.innerHTML = "Stage " + ++level;
             current_color = COLOR[level % COLOR.length];
             updateColors();
         }

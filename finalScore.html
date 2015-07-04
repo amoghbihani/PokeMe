@@ -35,11 +35,19 @@
     </style>
 </head>
 <body onload="load()" class="animatefadeIn">
+    <script src="js/constants.js"></script>
     <script type="text/javascript">
         var score;
         var highScore;
         var replayUrl;
         function load() {
+            var color = COLOR[3];
+            document.getElementById("title").style.background = color;
+            for (var i = 0; i < 2; ++i) {
+                document.getElementById("option" + i).style.borderColor = color;
+                document.getElementById("option" + i).style.color = color;
+            }
+
             var url = window.location.href;
             score = url.substring(url.indexOf('?') + 1, url.indexOf('#'));
             extras = url.substring(url.indexOf('#') + 1, url.length);
@@ -64,7 +72,7 @@
             }
         }
     </script>
-    <div class="pageTitle">
+    <div class="pageTitle" id="title">
         <h2 id="finalScoreHead">Final score</h2>
     </div>
     <div id="score">

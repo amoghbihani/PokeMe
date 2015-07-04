@@ -14,12 +14,23 @@
     <link rel="stylesheet" type="text/css" href="css/fadeInAnimation.css">
     <link rel="stylesheet" type="text/css" href="css/buttonClickAnimation.css">
 </head>
-<body class="animateFadeIn">
+<body class="animateFadeIn" onload="load()">
+    <script src="js/constants.js"></script>
     <script type="text/javascript">
         var rows;
         var columns;
+
+        function load() {
+            var color = COLOR[2];
+            document.getElementById("title").style.background = color;
+            for (var i = 0; i < 4; ++i) {
+                document.getElementById("option" + i).style.borderColor = color;
+                document.getElementById("option" + i).style.color = color;
+            }
+        }
+
         function selected(choice) {
-            for (var i = 0; i < 2; ++i) {
+            for (var i = 0; i < 4; ++i) {
                 document.getElementById("option" + i).className = "textChoice";
             }
             document.getElementById("option" + choice).className =
@@ -31,7 +42,7 @@
         }
     </script>
     <div class="pageTitle" id="title">
-        <h3>Difficulty</h3>
+        <h2>Difficulty</h2>
     </div>
     <div id="option0" class="textChoice" onclick="selected(0)">
         <p>Easy</p>

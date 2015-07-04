@@ -14,8 +14,14 @@
     <link rel="stylesheet" type="text/css" href="css/plainText.css">
     <link rel="stylesheet" type="text/css" href="css/fadeInAnimation.css">
 </head>
-<body class="animateFadeIn">
-    <div class="pageTitle">
+<body class="animateFadeIn" onload="load()">
+    <script src="js/constants.js"></script>
+    <script type="text/javascript">
+        function load() {
+            document.getElementById("title").style.background = COLOR[0];
+        }
+    </script>
+    <div id="title" class="pageTitle">
         <h2>About Game</h2>
     </div>
     <div class="subHeading">
