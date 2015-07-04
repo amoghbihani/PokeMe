@@ -39,6 +39,7 @@
         var lives = 3;
         var size = 35;
         var current_color = COLOR[1];
+        var type;
         var rows;
         var columns;
         var gameTimer;
@@ -54,8 +55,8 @@
 
         function initialize() {
             var url = window.location.href;
-            rows = url.substring(url.indexOf('?') + 1, url.indexOf('#'));
-            columns = extras = url.substring(url.indexOf('#') + 1, url.length);
+            type = parseInt(url.substring(url.indexOf('?') + 1, url.length));
+            setMatrix();
 
             scoreDiv = document.getElementById('score');
             levelDiv = document.getElementById('level');
@@ -71,6 +72,27 @@
             sizeX = width / columns;
             sizeY = height / rows;
             size = Math.min(sizeX, sizeY);
+        }
+
+        function setMatrix() {
+            switch (type) {
+                case EASY:
+                    rows = 4;
+                    columns = 3;
+                    break;
+                case MODERATE:
+                    rows = 5;
+                    columns = 4;
+                    break;
+                case HARD:
+                    rows = 6;
+                    columns = 5;
+                    break;
+                case EXPERT:
+                    rows = 7;
+                    columns = 6;
+                    break;
+            }
         }
 
         function createTable() {
@@ -125,6 +147,37 @@
             updateColors();
         }
 
+        function highestScore() {
+            switch (type) {
+                case EASY:
+                    if (localStorage.easy_score == undefined
+                            || localStorage.easy_score < score) {
+                        localStorage.easy_score = score;
+                    }
+                    return localStorage.easy_score;
+                case MODERATE:
+                    if (localStorage.moderate_score == undefined
+                            || localStorage.moderate_score < score) {
+                        localStorage.moderate_score = score;
+                    }
+                    return localStorage.moderate_score;
+                case HARD:
+                    if (localStorage.hard_score == undefined
+                            || localStorage.hard_score < score) {
+                        localStorage.hard_score = score;
+                    }
+                    return localStorage.hard_score;
+                case EXPERT:
+                    if (localStorage.expert_score == undefined
+                            || localStorage.expert_score < score) {
+                        localStorage.expert_score = score;
+                    }
+                    return localStorage.expert_score;
+                default:
+                    return 0;
+            }
+        }
+
         function success() {
             scoreDiv.innerHTML = "Score: " + ++score;
             if (score % 10 == 0) {
@@ -138,7 +191,7 @@
                 return;
             }
             clearInterval(gameTimer);
-            window.location.href = "finalScore.html?" + score +"#0#" + window.location.href;
+            window.location.href = "finalScore.html?" + score +"#" + highestScore() + "#" + window.location.href;
         }
 
         function setElementSleepy() {

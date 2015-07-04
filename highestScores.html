@@ -1,0 +1,62 @@
+<!--
+ * Project: Fun With Flags
+ * Author: Amogh Bihani
+-->
+
+<!DOCTYPE>
+<html>
+<head>
+    <title> Highest Scores </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/body.css">
+    <link rel="stylesheet" type="text/css" href="css/pageTitle.css">
+    <link rel="stylesheet" type="text/css" href="css/plainText.css">
+    <link rel="stylesheet" type="text/css" href="css/subHeading.css">
+    <style type="text/css">
+        .container {
+            display: inline-block;
+            width: 100%;
+        }
+        .leftDiv {
+            float: left;
+            width:50%;
+        }
+        .rightDiv {
+            float: right;
+            width:50%;
+        }
+    </style>
+</head>
+<body class="animateFadeIn" onload="load()">
+    <script type="text/javascript">
+        function load() {
+            document.getElementById('easyScore').innerHTML = localStorage.easy_score || 0;
+            document.getElementById('moderateScore').innerHTML = localStorage.moderate_score || 0;
+            document.getElementById('hardScore').innerHTML = localStorage.hard_score || 0;
+            document.getElementById('expertScore').innerHTML = localStorage.expert_score || 0;
+        }
+    </script>
+    <div class="pageTitle">
+        <h2>Highest Scores</h2>
+    </div>
+    <div class="subHeading">
+        <p>Game Level</p>
+    </div>
+    <div class="plainText container">
+        <div class="leftDiv">Easy</div>
+        <div id="easyScore" class="rightDiv"></div>
+    </div>
+    <div class="plainText container">
+        <div class="leftDiv">Moderate</div>
+        <div id="moderateScore" class="rightDiv"></div>
+    </div>
+    <div class="plainText container">
+        <div class="leftDiv">Hard</div>
+        <div id="hardScore" class="rightDiv"></div>
+    </div>
+    <div class="plainText container">
+        <div class="leftDiv">Expert</div>
+        <div id="expertScore" class="rightDiv"></div>
+    </div>
+</body>
+</html>

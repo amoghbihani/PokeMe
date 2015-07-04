@@ -25,30 +25,9 @@
             document.getElementById("option" + choice).className =
                     document.getElementById("option" + choice).className + " animateButtonClick";
             
-            setLevel(choice);
             setTimeout(function() {
-                window.location.href = "game.html?" + rows + "#" + columns;
+                window.location.href = "game.html?" + choice;
             }, 500);            
-        }
-        function setLevel(choice) {
-            switch(choice) {
-            case 0:
-                rows = 4;
-                columns = 3;
-                break;
-            case 1:
-                rows = 5;
-                columns = 4;
-                break;
-            case 2:
-                rows = 6;
-                columns = 5;
-                break;
-            case 3:
-                rows = 7;
-                columns = 6;
-                break;
-            };
         }
     </script>
     <div class="pageTitle" id="title">

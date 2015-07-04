@@ -6,6 +6,11 @@
 var DOT_INTERVAL = 1000;
 var DOT_TIMEOUT = 2000;
 
+var EASY = 0;
+var MODERATE = 1;
+var HARD = 2;
+var EXPERT = 3;
+
 var COLOR = new Array();
 COLOR[0] = "#f44336"
 COLOR[1] = "#6200ea"
