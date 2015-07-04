@@ -14,9 +14,11 @@
     <link rel="stylesheet" type="text/css" href="css/fadeInAnimation.css">
     <link rel="stylesheet" type="text/css" href="css/buttonClickAnimation.css">
 </head>
-<body class="animateFadeIn">
+<body class="animateFadeIn" onload="initSounds()">
+    <script src="js/sounds.js"></script>
     <script type="text/javascript">
         function selected(choice) {
+            CLICK.play();
             for (var i = 0; i < 2; ++i) {
                 document.getElementById("option" + i).className = "textChoice";
             }

@@ -29,6 +29,7 @@
 </head>
 <body onload="load()">
     <script src="js/constants.js"></script>
+    <script src="js/sounds.js"></script>
     <script src="js/tile.js"></script>
     <script src="js/theme.js"></script>
     <script type="text/javascript">
@@ -40,15 +41,13 @@
         var size = 35;
         var current_color = COLOR[1];
         var type;
-        var rows;
-        var columns;
+        var rows, columns;
+        var scoreDiv, levelDiv, remainingDiv;
         var gameTimer;
-        var scoreDiv;
-        var levelDiv;
-        var remainingDiv;
 
         function load() {
             initialize();
+            initSounds();
             createTable();
             updateColors();
         }
@@ -186,12 +185,15 @@
         }
 
         function endGame() {
+            ERROR.play();
             remainingDiv.innerHTML = "Lives: " + --lives;
             if (lives > 0) {
                 return;
             }
             clearInterval(gameTimer);
-            window.location.href = "finalScore.html?" + score +"#" + highestScore() + "#" + window.location.href;
+            setTimeout(function() {
+                window.location.href = "finalScore.html?" + score +"#" + highestScore() + "#" + window.location.href;
+            }, 100);
         }
 
         function setElementSleepy() {
@@ -200,6 +202,7 @@
                 setElementSleepy();
                 return;
             }
+            TING.play();
             Tiles[elemNum].setSleepy(current_color);
             if ((score + 1) % 10 == 0) {
                 clearInterval(gameTimer);

@@ -16,11 +16,13 @@
 </head>
 <body class="animateFadeIn" onload="load()">
     <script src="js/constants.js"></script>
+    <script src="js/sounds.js"></script>
     <script type="text/javascript">
         var rows;
         var columns;
 
         function load() {
+            initSounds();
             var color = COLOR[2];
             document.getElementById("title").style.background = color;
             for (var i = 0; i < 4; ++i) {
@@ -30,6 +32,7 @@
         }
 
         function selected(choice) {
+            CLICK.play();
             for (var i = 0; i < 4; ++i) {
                 document.getElementById("option" + i).className = "textChoice";
             }

@@ -36,11 +36,13 @@
 </head>
 <body onload="load()" class="animatefadeIn">
     <script src="js/constants.js"></script>
+    <script src="js/sounds.js"></script>
     <script type="text/javascript">
         var score;
         var highScore;
         var replayUrl;
         function load() {
+            initSounds();
             var color = COLOR[3];
             document.getElementById("title").style.background = color;
             for (var i = 0; i < 2; ++i) {
@@ -59,6 +61,7 @@
         }
 
         function selected(choice) {
+            CLICK.play();
             document.getElementById("option" + choice).className =
                     document.getElementById("option" + choice).className + " animateButtonClick";
             if (choice == 0) {
